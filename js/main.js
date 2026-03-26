@@ -81,7 +81,7 @@ function renderProductCard(p, lang, opts = {}) {
   const desc = lang === 'hi' ? p.desc_hi : p.desc_en;
   const price = (p.price === 'Contact for Price') ? t.contact_price : p.price;
   const lastUp = getLastUpdate();
-  const catLink = opts.linkToContact ? 'contact.html' : `catalogue.html?cat=${p.cat}`;
+  const catLink = opts.linkToContact ? 'index.html#contact' : `catalogue.html?cat=${p.cat}`;
 
   return `
     <div class="product-card" data-cat="${p.cat}">
