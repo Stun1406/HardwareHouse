@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — Hardware House</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --p: #7B1C1C; --pd: #5C1515; --s: #C96A1E;
+      --bg: #F4F0EB; --white: #fff;
+      --text: #1A1A1A; --med: #555; --lt: #888;
+      --border: #E0D5CC;
+      --radius: 6px; --ease: 0.2s ease;
+      --shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',system-ui,sans-serif; background:var(--bg); color:var(--text); font-size:14px; }
+
+    /* ── LOGIN ── */
+    .login-wrap {
+      min-height:100vh; display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(135deg, var(--pd) 0%, var(--p) 60%, #9e2323 100%);
+    }
+    .login-card {
+      background:var(--white); border-radius:12px; padding:40px 36px;
+      width:100%; max-width:380px; box-shadow:0 12px 40px rgba(0,0,0,0.25);
+    }
+    .login-logo { text-align:center; margin-bottom:28px; }
+    .login-icon {
+      width:56px; height:56px; background:var(--p); color:#fff;
+      border-radius:10px; display:inline-flex; align-items:center;
+      justify-content:center; font-size:1.2rem; font-weight:800; margin-bottom:10px;
+    }
+    .login-logo h2 { font-size:1.2rem; font-weight:700; color:var(--p); }
+    .login-logo p  { font-size:0.78rem; color:var(--lt); margin-top:2px; }
+    .login-err {
+      background:#FEE2E2; border:1px solid #FCA5A5; border-radius:var(--radius);
+      padding:9px 12px; font-size:0.82rem; color:#991B1B; margin-bottom:14px; display:none;
+    }
+    .login-err.show { display:block; }
+
+    /* ── SHARED FORM ELEMENTS ── */
+    .fg { margin-bottom:14px; }
+    .fg label { display:block; font-size:0.78rem; font-weight:600; margin-bottom:5px; color:var(--text); }
+    .fg input, .fg select, .fg textarea {
+      width:100%; padding:9px 12px; border:1.5px solid var(--border);
+      border-radius:var(--radius); font-family:inherit; font-size:0.875rem;
+      background:var(--white); transition:border-color var(--ease);
+    }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { outline:none; border-color:var(--p); }
+    .fg textarea { resize:vertical; min-height:70px; }
+
+    .btn {
+      display:inline-flex; align-items:center; gap:6px;
+      padding:9px 18px; border-radius:var(--radius);
+      font-family:inherit; font-size:0.83rem; font-weight:600;
+      cursor:pointer; border:none; transition:var(--ease); text-decoration:none;
+    }
+    .btn-p  { background:var(--s); color:#fff; }
+    .btn-p:hover { background:#b05c18; }
+    .btn-d  { background:var(--p); color:#fff; }
+    .btn-d:hover { background:var(--pd); }
+    .btn-outline { background:transparent; border:1.5px solid var(--border); color:var(--med); }
+    .btn-outline:hover { border-color:var(--p); color:var(--p); }
+    .btn-danger { background:#DC2626; color:#fff; }
+    .btn-danger:hover { background:#B91C1C; }
+    .btn-sm { padding:5px 12px; font-size:0.75rem; }
+    .btn-success { background:#16A34A; color:#fff; }
+    .btn-success:hover { background:#15803D; }
+
+    /* ── LAYOUT ── */
+    #app { display:none; min-height:100vh; }
+    .topbar {
+      background:var(--pd); color:#fff; padding:12px 24px;
+      display:flex; align-items:center; justify-content:space-between;
+      position:sticky; top:0; z-index:100; box-shadow:0 2px 8px rgba(0,0,0,0.2);
+    }
+    .topbar-brand { display:flex; align-items:center; gap:10px; }
+    .topbar-icon {
+      width:36px; height:36px; background:var(--s); border-radius:6px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:800; font-size:0.85rem;
+    }
+    .topbar-brand h1 { font-size:1rem; font-weight:700; }
+    .topbar-brand p  { font-size:0.7rem; opacity:0.65; }
+    .topbar-right    { display:flex; align-items:center; gap:10px; }
+    .topbar-right a  { color:rgba(255,255,255,0.75); text-decoration:none; font-size:0.8rem; }
+    .topbar-right a:hover { color:#fff; }
+
+    .main-layout { display:grid; grid-template-columns:210px 1fr; min-height:calc(100vh - 58px); }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      background:var(--white); border-right:1px solid var(--border); padding:20px 0;
+      position:sticky; top:58px; height:calc(100vh - 58px); overflow-y:auto;
+    }
+    .sidebar-nav li { list-style:none; }
+    .sidebar-nav a, .sidebar-nav button {
+      display:flex; align-items:center; gap:10px; width:100%;
+      padding:10px 20px; color:var(--med); text-decoration:none;
+      font-size:0.83rem; font-weight:500; transition:var(--ease);
+      background:none; border:none; cursor:pointer; font-family:inherit; text-align:left;
+    }
+    .sidebar-nav a:hover, .sidebar-nav button:hover { color:var(--p); background:#FFF8F5; }
+    .sidebar-nav a.active, .sidebar-nav button.active {
+      color:var(--p); background:#FFF0E8; font-weight:700;
+      border-left:3px solid var(--s);
+    }
+    .sidebar-section { padding:14px 20px 6px; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:var(--lt); }
+
+    /* ── CONTENT ── */
+    .content { padding:28px; overflow-y:auto; }
+    .page-panel { display:none; }
+    .page-panel.active { display:block; }
+
+    /* ── STATS ROW ── */
+    .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:28px; }
+    .stat-card {
+      background:var(--white); border-radius:var(--radius); padding:20px;
+      box-shadow:var(--shadow); border-left:4px solid var(--s);
+    }
+    .stat-num   { font-size:1.8rem; font-weight:800; color:var(--p); }
+    .stat-label { font-size:0.75rem; color:var(--lt); margin-top:2px; }
+
+    /* ── PANELS & CARDS ── */
+    .panel {
+      background:var(--white); border-radius:var(--radius);
+      padding:22px; box-shadow:var(--shadow); margin-bottom:20px;
+    }
+    .panel-header {
+      display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;
+    }
+    .panel-header h3 { font-size:1rem; font-weight:700; }
+
+    /* ── TABLE ── */
+    .tbl-wrap { overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; }
+    th {
+      background:var(--bg); padding:10px 12px; text-align:left;
+      font-size:0.75rem; font-weight:700; color:var(--lt);
+      text-transform:uppercase; letter-spacing:0.4px; border-bottom:1px solid var(--border);
+    }
+    td {
+      padding:11px 12px; border-bottom:1px solid var(--border);
+      font-size:0.83rem; vertical-align:middle;
+    }
+    tr:last-child td { border-bottom:none; }
+    tr:hover td { background:#FAFAF9; }
+    .badge {
+      display:inline-block; padding:2px 8px; border-radius:10px; font-size:0.7rem; font-weight:600;
+    }
+    .badge-sections    { background:#FFF0E0; color:#C96A1E; }
+    .badge-sheets      { background:#EDF3FF; color:#2563EB; }
+    .badge-hardware    { background:#F0FFF4; color:#16A34A; }
+    .badge-accessories { background:#FDF4FF; color:#7C3AED; }
+    .badge-featured    { background:#FEF9C3; color:#A16207; }
+    .price-cell { font-weight:700; color:var(--p); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position:fixed; inset:0; background:rgba(0,0,0,0.45);
+      z-index:999; display:none; align-items:center; justify-content:center; padding:20px;
+    }
+    .modal-overlay.open { display:flex; }
+    .modal {
+      background:var(--white); border-radius:10px; padding:28px;
+      width:100%; max-width:540px; max-height:90vh; overflow-y:auto;
+      box-shadow:0 20px 60px rgba(0,0,0,0.25);
+    }
+    .modal-header {
+      display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;
+    }
+    .modal-header h3 { font-size:1rem; font-weight:700; }
+    .modal-close {
+      background:none; border:none; cursor:pointer; font-size:1.3rem;
+      color:var(--lt); line-height:1; padding:2px 6px; border-radius:4px;
+    }
+    .modal-close:hover { background:var(--bg); color:var(--text); }
+    .modal-footer { display:flex; gap:10px; justify-content:flex-end; margin-top:20px; }
+
+    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+
+    /* ── NOTICE ── */
+    .notice {
+      padding:12px 16px; border-radius:var(--radius); font-size:0.83rem; margin-bottom:16px; display:none;
+    }
+    .notice.show { display:block; }
+    .notice-success { background:#F0FDF4; border:1px solid #86EFAC; color:#166534; }
+    .notice-info    { background:#EFF6FF; border:1px solid #93C5FD; color:#1D4ED8; }
+
+    /* ── PRICE UPDATE HERO ── */
+    .update-hero {
+      background:linear-gradient(135deg, var(--p), var(--s));
+      color:#fff; border-radius:10px; padding:24px 28px; margin-bottom:20px;
+      display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;
+    }
+    .update-hero h3 { font-size:1.05rem; font-weight:700; margin-bottom:4px; }
+    .update-hero p  { font-size:0.83rem; opacity:0.85; }
+
+    @media (max-width:768px) {
+      .main-layout { grid-template-columns:1fr; }
+      .sidebar { display:none; }
+      .stats-row { grid-template-columns:1fr 1fr; }
+      .row2 { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════ LOGIN SCREEN ═══════════════════════ -->
+<div class="login-wrap" id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-icon">HH</div>
+      <h2>Hardware House</h2>
+      <p>Admin Panel · Secure Login</p>
+    </div>
+    <div class="login-err" id="login-err">Incorrect password. Please try again.</div>
+    <form id="login-form">
+      <div class="fg">
+        <label>Password</label>
+        <input type="password" id="login-pw" placeholder="Enter admin password" autofocus>
+      </div>
+      <button type="submit" class="btn btn-d" style="width:100%;justify-content:center;">Login</button>
+    </form>
+    <p style="text-align:center;font-size:0.75rem;color:var(--lt);margin-top:16px;">
+      Default password: <strong>admin123</strong>
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════════════ APP ═══════════════════════ -->
+<div id="app">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-brand">
+      <div class="topbar-icon">HH</div>
+      <div>
+        <h1>Hardware House Admin</h1>
+        <p>Manage products &amp; contact info</p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <a href="../index.html" target="_blank">← View Website</a>
+      <button class="btn btn-outline btn-sm" onclick="logout()" style="color:#fff;border-color:rgba(255,255,255,0.3);">Logout</button>
+    </div>
+  </div>
+
+  <div class="main-layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <ul class="sidebar-nav">
+        <li class="sidebar-section">Dashboard</li>
+        <li><button class="active" onclick="showPage('dashboard',this)">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+          Dashboard
+        </button></li>
+
+        <li class="sidebar-section">Products</li>
+        <li><button onclick="showPage('products',this)">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/></svg>
+          All Products
+        </button></li>
+        <li><button onclick="openAddModal()">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+          Add Product
+        </button></li>
+        <li><button onclick="showPage('prices',this)">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+          Update Prices
+        </button></li>
+
+        <li class="sidebar-section">Settings</li>
+        <li><button onclick="showPage('contact-settings',this)">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Contact Info
+        </button></li>
+        <li><button onclick="showPage('security',this)">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          Change Password
+        </button></li>
+      </ul>
+    </aside>
+
+    <!-- CONTENT AREA -->
+    <main class="content">
+
+      <!-- ── DASHBOARD ── -->
+      <div class="page-panel active" id="page-dashboard">
+        <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:6px;">Dashboard</h2>
+        <p style="color:var(--lt);font-size:0.83rem;margin-bottom:22px;">Overview of your website data.</p>
+
+        <div class="stats-row" id="dash-stats"></div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Quick Actions</h3>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn btn-success" onclick="bulkMarkUpdated()">
+              ✓ Mark All Prices Updated Today
+            </button>
+            <button class="btn btn-p" onclick="openAddModal()">+ Add New Product</button>
+            <button class="btn btn-d" onclick="showPage('prices', document.querySelector('.sidebar-nav button:nth-child(5)'))">Edit Prices</button>
+            <a href="../catalogue.html" target="_blank" class="btn btn-outline">Preview Catalogue →</a>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header"><h3>Featured Products (shown on Homepage)</h3></div>
+          <div id="dash-featured"></div>
+        </div>
+      </div>
+
+      <!-- ── ALL PRODUCTS ── -->
+      <div class="page-panel" id="page-products">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+          <div>
+            <h2 style="font-size:1.3rem;font-weight:700;">All Products</h2>
+            <p style="color:var(--lt);font-size:0.83rem;margin-top:2px;" id="product-count"></p>
+          </div>
+          <button class="btn btn-p" onclick="openAddModal()">+ Add Product</button>
+        </div>
+        <div class="panel" style="padding:0;">
+          <div class="tbl-wrap">
+            <table id="products-table">
+              <thead>
+                <tr>
+                  <th>Product</th><th>Category</th><th>Price</th>
+                  <th>Featured</th><th style="width:110px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="products-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PRICE UPDATE ── -->
+      <div class="page-panel" id="page-prices">
+        <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:20px;">Update Prices</h2>
+        <div class="update-hero">
+          <div>
+            <h3>Weekly Price Update</h3>
+            <p>Edit prices below, then click "Save All Prices" to publish changes to the website.</p>
+          </div>
+          <button class="btn" style="background:#fff;color:var(--p);" onclick="saveAllPrices()">
+            ✓ Save All Prices
+          </button>
+        </div>
+        <div class="notice notice-success" id="price-save-notice">
+          Prices saved and last-updated date has been updated!
+        </div>
+        <div class="panel" style="padding:0;">
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>Product Name</th><th>Category</th><th style="width:200px;">Price</th></tr>
+              </thead>
+              <tbody id="price-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div style="margin-top:16px;display:flex;gap:10px;">
+          <button class="btn btn-success" onclick="saveAllPrices()">✓ Save All Prices</button>
+          <button class="btn btn-outline" onclick="renderPriceTable()">↺ Reset Changes</button>
+        </div>
+      </div>
+
+      <!-- ── CONTACT SETTINGS ── -->
+      <div class="page-panel" id="page-contact-settings">
+        <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:20px;">Contact Information</h2>
+        <div class="notice notice-success" id="contact-save-notice">Contact information saved!</div>
+        <div class="panel">
+          <form id="contact-form">
+            <div class="row2">
+              <div class="fg"><label>Primary Phone</label><input type="tel" id="c-phone1"></div>
+              <div class="fg"><label>Secondary Phone</label><input type="tel" id="c-phone2"></div>
+            </div>
+            <div class="fg"><label>Email Address</label><input type="email" id="c-email"></div>
+            <div class="fg"><label>Full Address</label><textarea id="c-address" rows="2"></textarea></div>
+            <div class="fg"><label>Business Hours</label><input type="text" id="c-hours"></div>
+            <div class="fg">
+              <label>WhatsApp Number (with country code, no + or spaces)</label>
+              <input type="text" id="c-whatsapp" placeholder="917314010200">
+            </div>
+            <button type="submit" class="btn btn-d">Save Contact Info</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- ── SECURITY ── -->
+      <div class="page-panel" id="page-security">
+        <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:20px;">Change Password</h2>
+        <div class="notice notice-success" id="pw-save-notice">Password changed successfully!</div>
+        <div class="panel" style="max-width:420px;">
+          <form id="pw-form">
+            <div class="fg"><label>Current Password</label><input type="password" id="pw-current"></div>
+            <div class="fg"><label>New Password</label><input type="password" id="pw-new"></div>
+            <div class="fg"><label>Confirm New Password</label><input type="password" id="pw-confirm"></div>
+            <div id="pw-err" style="color:#DC2626;font-size:0.82rem;margin-bottom:10px;display:none;"></div>
+            <button type="submit" class="btn btn-d">Update Password</button>
+          </form>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ═══════════════════════ ADD / EDIT MODAL ═══════════════════════ -->
+<div class="modal-overlay" id="product-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-title">Add Product</h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <form id="product-form">
+      <input type="hidden" id="m-id">
+      <div class="row2">
+        <div class="fg"><label>Name (English)</label><input type="text" id="m-name-en" required></div>
+        <div class="fg"><label>Name (Hindi)</label><input type="text" id="m-name-hi"></div>
+      </div>
+      <div class="fg">
+        <label>Category</label>
+        <select id="m-cat">
+          <option value="sections">Aluminium Sections</option>
+          <option value="sheets">Aluminium Sheets</option>
+          <option value="hardware">Aluminium Hardware</option>
+          <option value="accessories">Hardware Accessories</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Price (e.g. ₹185/kg or "Contact for Price")</label>
+        <input type="text" id="m-price" placeholder="₹185/kg">
+      </div>
+      <div class="fg"><label>Description (English)</label><textarea id="m-desc-en"></textarea></div>
+      <div class="fg"><label>Description (Hindi)</label><textarea id="m-desc-hi"></textarea></div>
+      <div class="fg" style="display:flex;align-items:center;gap:8px;">
+        <input type="checkbox" id="m-featured" style="width:auto;">
+        <label for="m-featured" style="margin:0;cursor:pointer;">Show on Homepage (Featured)</label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-d" id="modal-save-btn">Save Product</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="../js/data.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

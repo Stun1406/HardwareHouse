@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — Hardware House</title>
+  <meta name="description" content="Contact Hardware House in Indore for aluminium product quotes, bulk enquiries, and product information.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="container">
+    <div class="top-bar-inner">
+      <div class="top-bar-left">
+        <span data-i18n="top_since">Since 1973</span>
+        <span class="top-bar-sep">|</span>
+        <span data-i18n="top_verified">Verified Supplier</span>
+      </div>
+      <div class="top-bar-right">
+        <a href="#" data-c="phone-link"><span data-c="phone1">0731-4010200</span></a>
+        <span class="top-bar-sep">|</span>
+        <a href="#" data-c="email-link"><span data-c="email">info@hardwarehouse.in</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="logo-wrap">
+        <div class="logo-icon">HH</div>
+        <div class="logo-text">
+          <div class="logo-name">Hardware House</div>
+          <div class="logo-sub">House of Aluminium</div>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html"     data-i18n="nav_home">Home</a></li>
+        <li><a href="catalogue.html" data-i18n="nav_catalogue">Catalogue</a></li>
+        <li><a href="about.html"     data-i18n="nav_about">About</a></li>
+        <li><a href="contact.html"   data-i18n="nav_contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-toggle">
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn"        data-lang="hi">हिं</button>
+        </div>
+        <a href="contact.html" class="btn btn-primary btn-sm" data-i18n="nav_cta">Get a Quote</a>
+        <button class="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <span>›</span>
+      <span data-i18n="nav_contact">Contact</span>
+    </div>
+    <h1><span data-i18n="nav_contact">Contact</span> Us</h1>
+    <p data-i18n="contact_page_sub">Reach us for quotes, bulk enquiries, or product information.</p>
+  </div>
+</div>
+
+<!-- CONTACT BODY -->
+<section class="contact-page-section">
+  <div class="container">
+    <div class="contact-page-grid">
+
+      <!-- LEFT: Info + Map -->
+      <div>
+        <div class="contact-cards">
+          <div class="info-card">
+            <h4 data-i18n="contact_phone">Phone</h4>
+            <p><a href="#" data-c="phone-link" data-c="phone-link" data-c="phone1">0731-4010200</a><br>
+               <a href="#" data-c="phone-link"><span data-c="phone2">0731-4010210</span></a></p>
+          </div>
+          <div class="info-card">
+            <h4 data-i18n="contact_email">Email</h4>
+            <p><a href="#" data-c="email-link"><span data-c="email">info@hardwarehouse.in</span></a></p>
+          </div>
+          <div class="info-card" style="grid-column:span 2;">
+            <h4 data-i18n="contact_address">Address</h4>
+            <p data-c="address">29, Jawahar Marg, Near Polo Ground, Indore – 452001, Madhya Pradesh</p>
+          </div>
+          <div class="info-card">
+            <h4 data-i18n="contact_hours">Business Hours</h4>
+            <p data-c="hours">Mon–Sat: 9:00 AM – 7:00 PM</p>
+          </div>
+          <div class="info-card">
+            <h4>WhatsApp</h4>
+            <p><a href="#" data-c="whatsapp-link" target="_blank">Chat on WhatsApp</a></p>
+          </div>
+        </div>
+
+        <!-- Map embed placeholder -->
+        <div class="map-placeholder">
+          <div>
+            <svg width="36" height="36" fill="none" stroke="#bbb" stroke-width="1.5" viewBox="0 0 24 24" style="display:block;margin:0 auto 10px;">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            <p style="margin-bottom:8px;">29, Jawahar Marg, Indore</p>
+            <a href="https://maps.google.com/?q=Jawahar+Marg+Indore" target="_blank" rel="noopener"
+               class="btn btn-outline btn-sm" data-i18n="get_directions">Get Directions on Google Maps</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Contact Form -->
+      <div>
+        <div class="form-wrap">
+          <h3 data-i18n="form_heading">Send Us a Message</h3>
+          <p data-i18n="form_sub">We typically respond within a few hours.</p>
+
+          <div class="form-success" id="form-success">
+            <span data-i18n="form_success">Thank you! We will contact you shortly.</span>
+          </div>
+
+          <form id="contact-form" novalidate>
+            <div class="form-group">
+              <label data-i18n="form_name">Your Name</label>
+              <input type="text" id="f-name" data-i18n-ph="form_name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+              <label data-i18n="form_phone">Phone Number</label>
+              <input type="tel" id="f-phone" data-i18n-ph="form_phone" placeholder="Phone Number" required>
+            </div>
+            <div class="form-group">
+              <label data-i18n="form_email">Email Address</label>
+              <input type="email" id="f-email" data-i18n-ph="form_email" placeholder="Email Address">
+            </div>
+            <div class="form-group">
+              <label data-i18n="form_product">Product / Category of Interest</label>
+              <select id="f-product">
+                <option value="">— Select category —</option>
+                <option value="sections">Aluminium Sections</option>
+                <option value="sheets">Aluminium Sheets</option>
+                <option value="hardware">Aluminium Hardware</option>
+                <option value="accessories">Hardware Accessories</option>
+                <option value="other">Other / General Enquiry</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label data-i18n="form_message">Your Message</label>
+              <textarea id="f-message" data-i18n-ph="form_message" placeholder="Your Message"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;" data-i18n="btn_send">Send Message</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="logo-wrap">
+          <div class="logo-icon">HH</div>
+          <div class="logo-text">
+            <div class="logo-name">Hardware House</div>
+            <div class="logo-sub">House of Aluminium</div>
+          </div>
+        </a>
+        <p class="footer-tagline" data-i18n="footer_about">Indore's trusted aluminium &amp; hardware supplier since 1973.</p>
+      </div>
+      <div>
+        <h4 data-i18n="footer_quick">Quick Links</h4>
+        <ul>
+          <li><a href="index.html"     data-i18n="nav_home">Home</a></li>
+          <li><a href="catalogue.html" data-i18n="nav_catalogue">Catalogue</a></li>
+          <li><a href="about.html"     data-i18n="nav_about">About Us</a></li>
+          <li><a href="contact.html"   data-i18n="nav_contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-i18n="footer_cats">Categories</h4>
+        <ul>
+          <li><a href="catalogue.html?cat=sections"    data-i18n="cat_sections">Aluminium Sections</a></li>
+          <li><a href="catalogue.html?cat=sheets"      data-i18n="cat_sheets">Aluminium Sheets</a></li>
+          <li><a href="catalogue.html?cat=hardware"    data-i18n="cat_hardware">Aluminium Hardware</a></li>
+          <li><a href="catalogue.html?cat=accessories" data-i18n="cat_accessories">Hardware Accessories</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-i18n="footer_contact">Contact Info</h4>
+        <ul class="footer-clist">
+          <li><svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg><span data-c="phone1">0731-4010200</span></li>
+          <li><svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><span data-c="email">info@hardwarehouse.in</span></li>
+          <li><svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span data-c="address">29, Jawahar Marg, Indore</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-i18n="footer_rights">© 2024 Hardware House. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<a href="#" class="wa-float" data-c="whatsapp-link" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+
+<script src="js/data.js"></script>
+<script src="js/translations.js"></script>
+<script src="js/main.js"></script>
+<script>
+function initContactPage() {
+  const form    = document.getElementById('contact-form');
+  const success = document.getElementById('form-success');
+  if (!form) return;
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name  = document.getElementById('f-name').value.trim();
+    const phone = document.getElementById('f-phone').value.trim();
+    if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
+    success.classList.add('show');
+    form.reset();
+    setTimeout(() => success.classList.remove('show'), 5000);
+  });
+}
+</script>
+</body>
+</html>
