@@ -74,12 +74,12 @@ const DEFAULT_PRODUCTS = [
 ];
 
 const DEFAULT_CONTACT = {
-  phone1:    '0731-4010200',
-  phone2:    '0731-4010210',
-  email:     'info@hardwarehouse.in',
-  address:   '29, Jawahar Marg, Near Polo Ground, Indore – 452001, Madhya Pradesh',
+  phone1:    '0731-4040490',
+  phone2:    '0731-2369678',
+  email:     'hardwarehouse1972@gmail.com',
+  address:   '22, Jawahar Marg, Opp. Saifee Hotel, Indore – 7 (M.P.)',
   hours:     'Monday to Saturday: 9:00 AM – 7:00 PM',
-  whatsapp:  '917314010200',
+  whatsapp:  '919827013786',
 };
 
 /* ── storage helpers ── */
