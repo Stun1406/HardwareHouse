@@ -76,17 +76,18 @@ function sel(q, fn) { document.querySelectorAll(q).forEach(fn); }
 
 /* ── Product card renderer ────────────────────────────────── */
 function renderProductCard(p, lang, opts = {}) {
-  const t    = TRANSLATIONS[lang];
-  const name = lang === 'hi' ? p.name_hi : p.name_en;
-  const desc = lang === 'hi' ? p.desc_hi : p.desc_en;
+  const t     = TRANSLATIONS[lang];
+  const name  = lang === 'hi' ? p.name_hi : p.name_en;
+  const desc  = lang === 'hi' ? p.desc_hi : p.desc_en;
   const price = (p.price === 'Contact for Price') ? t.contact_price : p.price;
   const lastUp = getLastUpdate();
-  const catLink = opts.linkToContact ? 'index.html#contact' : `catalogue.html?cat=${p.cat}`;
+  const catLabels = { sections:'Sections', sheets:'Sheets', hardware:'Hardware', accessories:'Accessories' };
 
   return `
     <div class="product-card" data-cat="${p.cat}">
       <div class="product-img">${getProductIcon(p.cat)}</div>
       <div class="product-info">
+        <span class="product-cat">${catLabels[p.cat] || p.cat}</span>
         <h3 class="product-name">${name}</h3>
         <p class="product-desc">${desc}</p>
         <div class="product-footer">
@@ -94,7 +95,6 @@ function renderProductCard(p, lang, opts = {}) {
             <div class="product-price">${price}</div>
             <div class="price-date">${t.price_updated}: ${lastUp}</div>
           </div>
-          <a href="${catLink}" class="btn btn-primary btn-sm">${t.btn_quote}</a>
         </div>
       </div>
     </div>`;
