@@ -46,17 +46,33 @@ function initNav() {
   const ham = document.querySelector('.hamburger');
   const links = document.querySelector('.nav-links');
   if (ham && links) {
-    ham.addEventListener('click', () => links.classList.toggle('open'));
+    ham.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      ham.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
     links.querySelectorAll('a').forEach(a =>
-      a.addEventListener('click', () => links.classList.remove('open'))
+      a.addEventListener('click', () => {
+        links.classList.remove('open');
+        ham.setAttribute('aria-expanded', 'false');
+      })
     );
   }
   /* mark active page */
   const page = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-links a').forEach(a => {
     const href = a.getAttribute('href') || '';
-    if (href === page || (page === '' && href === 'index.html')) a.classList.add('active');
+    if (href === page || (page === '' && href === 'index.html')) {
+      a.classList.add('active');
+      a.setAttribute('aria-current', 'page');
+    }
   });
+  /* scroll shadow on navbar */
+  const navbar = document.querySelector('.navbar');
+  if (navbar) {
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
+  }
 }
 
 /* ── Contact info populate ────────────────────────────────── */
@@ -84,7 +100,7 @@ function renderProductCard(p, lang, opts = {}) {
   const catLabels = { sections:'Sections', sheets:'Sheets', hardware:'Hardware', accessories:'Accessories' };
 
   return `
-    <div class="product-card" data-cat="${p.cat}">
+    <article class="product-card" data-cat="${p.cat}">
       <div class="product-img">${getProductIcon(p.cat)}</div>
       <div class="product-info">
         <span class="product-cat">${catLabels[p.cat] || p.cat}</span>
@@ -97,32 +113,40 @@ function renderProductCard(p, lang, opts = {}) {
           </div>
         </div>
       </div>
-    </div>`;
+    </article>`;
 }
 
 function getProductIcon(cat) {
   const icons = {
-    sections: `<svg width="72" height="72" viewBox="0 0 72 72" fill="none">
-      <rect x="8" y="52" width="56" height="10" rx="3" fill="#C96A1E" opacity="0.55"/>
-      <rect x="8" y="12" width="10" height="50" rx="3" fill="#C96A1E" opacity="0.55"/>
+    /* Aluminium L-angle cross-section profile */
+    sections: `<svg role="img" aria-label="Aluminium section profile" width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+      <title>Aluminium Section</title>
+      <polyline points="18,62 18,18 62,18"/>
+      <polyline points="18,18 18,30 30,30"/>
+      <polyline points="18,62 30,62 30,18"/>
     </svg>`,
-    sheets: `<svg width="72" height="72" viewBox="0 0 72 72" fill="none">
-      <rect x="8" y="24" width="56" height="7" rx="2" fill="#888" opacity="0.45"/>
-      <rect x="8" y="35" width="56" height="7" rx="2" fill="#888" opacity="0.45"/>
-      <rect x="8" y="46" width="56" height="7" rx="2" fill="#888" opacity="0.45"/>
+    /* Stacked flat sheet profiles */
+    sheets: `<svg role="img" aria-label="Aluminium sheet" width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round">
+      <title>Aluminium Sheet</title>
+      <rect x="14" y="20" width="52" height="10" rx="2"/>
+      <rect x="14" y="34" width="52" height="10" rx="2"/>
+      <rect x="14" y="48" width="52" height="10" rx="2"/>
     </svg>`,
-    hardware: `<svg width="72" height="72" viewBox="0 0 72 72" fill="none">
-      <circle cx="36" cy="36" r="14" stroke="#888" stroke-width="6" opacity="0.45"/>
-      <rect x="32" y="8"  width="8" height="18" rx="4" fill="#888" opacity="0.45"/>
-      <rect x="32" y="46" width="8" height="18" rx="4" fill="#888" opacity="0.45"/>
-      <rect x="8"  y="32" width="18" height="8" rx="4" fill="#888" opacity="0.45"/>
-      <rect x="46" y="32" width="18" height="8" rx="4" fill="#888" opacity="0.45"/>
+    /* Hex bolt / fastener */
+    hardware: `<svg role="img" aria-label="Aluminium hardware fastener" width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round">
+      <title>Aluminium Hardware</title>
+      <polygon points="40,12 57,22 57,58 40,68 23,58 23,22"/>
+      <circle cx="40" cy="40" r="11"/>
+      <line x1="40" y1="12" x2="40" y2="29"/>
+      <line x1="40" y1="51" x2="40" y2="68"/>
     </svg>`,
-    accessories: `<svg width="72" height="72" viewBox="0 0 72 72" fill="none">
-      <rect x="12" y="22" width="48" height="28" rx="4" stroke="#888" stroke-width="5" opacity="0.45"/>
-      <rect x="27" y="14" width="18" height="12" rx="3" stroke="#888" stroke-width="4" opacity="0.45"/>
-      <circle cx="27" cy="36" r="4" fill="#888" opacity="0.45"/>
-      <circle cx="45" cy="36" r="4" fill="#888" opacity="0.45"/>
+    /* Door handle / accessory */
+    accessories: `<svg role="img" aria-label="Hardware accessory handle" width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+      <title>Hardware Accessory</title>
+      <rect x="22" y="22" width="36" height="36" rx="5"/>
+      <line x1="33" y1="34" x2="47" y2="34"/>
+      <line x1="33" y1="40" x2="47" y2="40"/>
+      <line x1="33" y1="46" x2="43" y2="46"/>
     </svg>`,
   };
   return icons[cat] || icons.sections;

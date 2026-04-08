@@ -41,7 +41,7 @@
           <div class="logo-sub">House of Aluminium</div>
         </div>
       </a>
-      <ul class="nav-links">
+      <ul class="nav-links" id="nav-links">
         <li><a href="index.html"          data-i18n="nav_home">Home</a></li>
         <li><a href="catalogue.html"      data-i18n="nav_catalogue">Catalogue</a></li>
         <li><a href="index.html#about"    data-i18n="nav_about">About</a></li>
@@ -52,7 +52,7 @@
           <button class="lang-btn active" data-lang="en">EN</button>
           <button class="lang-btn"        data-lang="hi">हिं</button>
         </div>
-        <button class="hamburger" aria-label="Toggle menu">
+        <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -63,20 +63,20 @@
 <!-- PAGE HERO -->
 <div class="page-hero">
   <div class="container">
-    <div class="breadcrumb">
+    <nav aria-label="Breadcrumb" class="breadcrumb">
       <a href="index.html" data-i18n="nav_home">Home</a>
-      <span>›</span>
-      <span data-i18n="nav_catalogue">Catalogue</span>
-    </div>
+      <span aria-hidden="true">›</span>
+      <span aria-current="page" data-i18n="nav_catalogue">Catalogue</span>
+    </nav>
     <h1><span data-i18n="sec_catalogue">Products Catalogue</span></h1>
     <p data-i18n="sec_catalogue_sub">Weekly prices updated regularly</p>
   </div>
 </div>
 
 <!-- CATEGORY STRIP (desktop sticky) -->
-<div class="cat-filter">
+<nav class="cat-filter" aria-label="Filter products by category">
   <div class="container">
-    <div class="filter-tabs">
+    <div class="filter-tabs" role="list">
       <button class="filter-tab active" data-cat="all"         data-i18n="all_products">All Products</button>
       <button class="filter-tab"        data-cat="sections"    data-i18n="cat_sections">Aluminium Sections</button>
       <button class="filter-tab"        data-cat="sheets"      data-i18n="cat_sheets">Aluminium Sheets</button>
@@ -84,7 +84,7 @@
       <button class="filter-tab"        data-cat="accessories" data-i18n="cat_accessories">Hardware Accessories</button>
     </div>
   </div>
-</div>
+</nav>
 
 <!-- PRODUCT GRID -->
 <section class="catalogue-section">
