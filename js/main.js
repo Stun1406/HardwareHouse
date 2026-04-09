@@ -2,13 +2,16 @@
    Hardware House — Site-wide JS
    ============================================================ */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Sync from Supabase first (no-op if not configured)
+  if (typeof syncFromSupabase === 'function') await syncFromSupabase();
   initLang();
   initNav();
   initContact();
-  if (typeof initHomePage   === 'function') initHomePage();
-  if (typeof initCatalogue  === 'function') initCatalogue();
-  if (typeof initContactPage=== 'function') initContactPage();
+  if (typeof initAdmin       === 'function') initAdmin();
+  if (typeof initHomePage    === 'function') initHomePage();
+  if (typeof initCatalogue   === 'function') initCatalogue();
+  if (typeof initContactPage === 'function') initContactPage();
 });
 
 /* ── Language ─────────────────────────────────────────────── */
@@ -99,9 +102,17 @@ function renderProductCard(p, lang, opts = {}) {
   const lastUp = getLastUpdate();
   const catLabels = { sections:'Sections', sheets:'Sheets', hardware:'Hardware', accessories:'Accessories' };
 
+  const imgContent = p.image_url
+    ? `<img src="${p.image_url}" alt="${name}" loading="lazy">`
+    : getProductIcon(p.cat);
+
   return `
-    <article class="product-card" data-cat="${p.cat}">
-      <div class="product-img">${getProductIcon(p.cat)}</div>
+    <article class="product-card" data-cat="${p.cat}" data-id="${p.id}">
+      <div class="admin-card-actions" aria-hidden="true">
+        <button class="admin-card-btn" onclick="openEditProduct(${p.id})" title="Edit product">✏</button>
+        <button class="admin-card-btn delete" onclick="confirmDeleteProduct(${p.id})" title="Delete product">🗑</button>
+      </div>
+      <div class="product-img">${imgContent}</div>
       <div class="product-info">
         <span class="product-cat">${catLabels[p.cat] || p.cat}</span>
         <h3 class="product-name">${name}</h3>

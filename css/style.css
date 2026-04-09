@@ -591,3 +591,210 @@ dd { margin:0; }
   .hero-actions .btn { width:100%; justify-content:center; }
   .products-grid { grid-template-columns:1fr; }
 }
+
+/* ── Admin Bar ────────────────────────────────────────────── */
+.admin-bar {
+  position:sticky; top:0; z-index:1100;
+  background:var(--primary);
+  color:#fff;
+  font-size:0.82rem;
+}
+.admin-bar-inner {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:8px 28px; gap:12px; flex-wrap:wrap;
+}
+.admin-bar-brand {
+  font-weight:700; letter-spacing:0.04em; opacity:0.9;
+}
+.admin-bar-actions {
+  display:flex; gap:8px; flex-wrap:wrap;
+}
+.admin-bar-actions .btn {
+  font-size:0.78rem; padding:5px 14px;
+  background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25);
+  color:#fff;
+}
+.admin-bar-actions .btn:hover {
+  background:rgba(255,255,255,0.22);
+}
+.admin-bar-actions .btn.danger {
+  background:rgba(220,38,38,0.3); border-color:rgba(220,38,38,0.5);
+}
+.admin-bar-actions .btn.danger:hover {
+  background:rgba(220,38,38,0.5);
+}
+
+/* ── Admin card overlay (edit/delete on hover) ────────────── */
+.admin-card-actions {
+  position:absolute; top:10px; right:10px;
+  display:flex; gap:6px;
+  opacity:0; pointer-events:none;
+  transition:opacity var(--ease);
+  z-index:10;
+}
+body.admin-mode .product-card:hover .admin-card-actions {
+  opacity:1; pointer-events:auto;
+}
+body.admin-mode .product-card {
+  cursor:default;
+}
+.admin-card-btn {
+  background:rgba(255,255,255,0.95);
+  border:1px solid var(--border);
+  border-radius:8px;
+  width:32px; height:32px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.9rem; cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,0.12);
+  transition:background var(--ease), box-shadow var(--ease);
+}
+.admin-card-btn:hover { background:#fff; box-shadow:0 4px 12px rgba(0,0,0,0.18); }
+.admin-card-btn.delete:hover { background:#FEF2F2; border-color:#FCA5A5; }
+
+/* Make product-card position:relative for absolute overlay */
+.product-card { position:relative; }
+
+/* ── Admin trigger (footer) ───────────────────────────────── */
+.admin-trigger {
+  background:none; border:none; cursor:pointer;
+  color:var(--muted); font-size:0.72rem;
+  opacity:0.4; padding:4px 6px;
+  transition:opacity var(--ease);
+}
+.admin-trigger:hover { opacity:0.8; }
+
+/* ── Modal overlay (shared) ───────────────────────────────── */
+.admin-modal-overlay {
+  position:fixed; inset:0; z-index:2000;
+  background:rgba(0,0,0,0.55); backdrop-filter:blur(4px);
+  display:flex; align-items:center; justify-content:center;
+  padding:20px;
+}
+.admin-modal-overlay[hidden] { display:none; }
+
+/* ── Login modal card ─────────────────────────────────────── */
+.admin-login-card {
+  background:#fff; border-radius:var(--radius);
+  padding:40px 36px; width:100%; max-width:400px;
+  box-shadow:0 24px 64px rgba(0,0,0,0.2);
+}
+.admin-login-card h2 {
+  font-size:1.35rem; font-weight:700; color:var(--primary);
+  margin-bottom:6px;
+}
+.admin-login-card p {
+  font-size:0.85rem; color:var(--muted); margin-bottom:24px;
+}
+.admin-login-card .form-group { margin-bottom:16px; }
+.admin-login-card label {
+  display:block; font-size:0.82rem; font-weight:600;
+  color:var(--text); margin-bottom:6px;
+}
+.admin-login-card input {
+  width:100%; padding:10px 14px;
+  border:1.5px solid var(--border); border-radius:var(--radius-sm);
+  font-size:0.92rem; color:var(--text);
+  transition:border-color var(--ease);
+  box-sizing:border-box;
+}
+.admin-login-card input:focus {
+  outline:none; border-color:var(--secondary);
+  box-shadow:0 0 0 3px rgba(201,106,30,0.15);
+}
+.admin-login-card .btn-full {
+  width:100%; justify-content:center; margin-top:8px;
+}
+.admin-login-footer {
+  display:flex; justify-content:flex-end; margin-top:14px;
+}
+.admin-login-footer button {
+  background:none; border:none; font-size:0.8rem;
+  color:var(--muted); cursor:pointer; text-decoration:underline;
+}
+
+/* ── Product / Contact modal card ────────────────────────── */
+.admin-modal-card {
+  background:#fff; border-radius:var(--radius);
+  width:100%; max-width:640px; max-height:90vh;
+  overflow-y:auto; box-shadow:0 24px 64px rgba(0,0,0,0.2);
+}
+.admin-modal-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:22px 28px 0;
+  border-bottom:1px solid var(--border); padding-bottom:16px;
+  position:sticky; top:0; background:#fff; z-index:1;
+}
+.admin-modal-header h2 {
+  font-size:1.2rem; font-weight:700; color:var(--primary);
+}
+.admin-modal-close {
+  background:none; border:none; cursor:pointer;
+  font-size:1.3rem; color:var(--muted); line-height:1;
+  transition:color var(--ease);
+}
+.admin-modal-close:hover { color:var(--primary); }
+.admin-modal-body { padding:24px 28px; }
+.admin-modal-footer {
+  padding:16px 28px 24px;
+  display:flex; gap:10px; justify-content:flex-end;
+  border-top:1px solid var(--border);
+}
+
+/* ── Form helpers ─────────────────────────────────────────── */
+.form-group { margin-bottom:18px; }
+.form-group label {
+  display:block; font-size:0.82rem; font-weight:600;
+  color:var(--text); margin-bottom:6px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width:100%; padding:10px 14px;
+  border:1.5px solid var(--border); border-radius:var(--radius-sm);
+  font-size:0.9rem; color:var(--text); font-family:inherit;
+  background:#fff; box-sizing:border-box;
+  transition:border-color var(--ease);
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline:none; border-color:var(--secondary);
+  box-shadow:0 0 0 3px rgba(201,106,30,0.15);
+}
+.form-group textarea { resize:vertical; min-height:80px; }
+.form-grid-2 {
+  display:grid; grid-template-columns:1fr 1fr; gap:0 16px;
+}
+.form-check { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+.form-check input[type="checkbox"] { width:18px; height:18px; cursor:pointer; }
+.form-check label { font-size:0.88rem; color:var(--text); margin:0; cursor:pointer; }
+
+/* ── Error box ────────────────────────────────────────────── */
+.admin-err {
+  background:#FEF2F2; border:1px solid #FCA5A5; border-radius:var(--radius-sm);
+  color:#B91C1C; font-size:0.84rem; padding:10px 14px; margin-top:12px;
+}
+.admin-err[hidden] { display:none; }
+
+/* ── Image preview ────────────────────────────────────────── */
+.prod-img-preview {
+  display:block; max-width:120px; max-height:120px;
+  border-radius:var(--radius-sm); margin-top:10px;
+  border:1px solid var(--border); object-fit:cover;
+}
+.prod-img-preview[hidden] { display:none; }
+
+/* ── Toast notification ───────────────────────────────────── */
+.admin-toast {
+  position:fixed; bottom:24px; right:24px; z-index:3000;
+  background:var(--primary); color:#fff;
+  padding:12px 22px; border-radius:var(--radius-sm);
+  font-size:0.88rem; font-weight:500;
+  box-shadow:0 8px 24px rgba(0,0,0,0.2);
+  animation:toast-in 0.2s ease;
+}
+.admin-toast[hidden] { display:none; }
+@keyframes toast-in {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}

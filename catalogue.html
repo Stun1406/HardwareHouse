@@ -9,8 +9,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
+
+<!-- ════════ ADMIN BAR (shown only when logged in) ════════ -->
+<div id="admin-bar" hidden>
+  <div class="admin-bar">
+    <div class="admin-bar-inner">
+      <span class="admin-bar-brand">⚙ Admin Mode</span>
+      <div class="admin-bar-actions">
+        <button class="btn" onclick="openAddProduct()">+ Add Product</button>
+        <button class="btn" onclick="openEditContact()">Edit Contact</button>
+        <button class="btn" onclick="adminMarkPricesUpdated()">Mark Prices Updated</button>
+        <button class="btn danger" onclick="doAdminLogout()">Log Out</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- TOP BAR -->
 <div class="top-bar">
@@ -158,6 +174,7 @@
     </div>
     <div class="footer-bottom">
       <p data-i18n="footer_rights">© 2024 Hardware House. All rights reserved.</p>
+      <button class="admin-trigger" onclick="showAdminLogin()">Admin</button>
     </div>
   </div>
 </footer>
@@ -166,9 +183,139 @@
   <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
 </a>
 
+<!-- ════════ ADMIN: Login Modal ════════ -->
+<div id="admin-login-modal" class="admin-modal-overlay" hidden>
+  <div class="admin-login-card" role="dialog" aria-modal="true" aria-labelledby="login-heading">
+    <h2 id="login-heading">Admin Login</h2>
+    <p>Sign in with your administrator account.</p>
+    <div class="form-group">
+      <label for="admin-email-input">Email</label>
+      <input type="email" id="admin-email-input" placeholder="admin@example.com" autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label for="admin-pw-input">Password</label>
+      <input type="password" id="admin-pw-input" placeholder="Password" autocomplete="current-password">
+    </div>
+    <div id="admin-login-err" class="admin-err" hidden></div>
+    <button id="admin-login-btn" class="btn btn-primary btn-full" onclick="doAdminLogin()">Sign In</button>
+    <div class="admin-login-footer">
+      <button onclick="hideAdminLogin()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ ADMIN: Product Modal ════════ -->
+<div id="admin-prod-modal" class="admin-modal-overlay" hidden>
+  <div class="admin-modal-card" role="dialog" aria-modal="true" aria-labelledby="prod-modal-heading">
+    <div class="admin-modal-header">
+      <h2 id="prod-modal-heading">Add Product</h2>
+      <button class="admin-modal-close" onclick="closeProdModal()" aria-label="Close">&times;</button>
+    </div>
+    <div class="admin-modal-body">
+      <form id="prod-form" onsubmit="event.preventDefault(); saveProduct();">
+        <input type="hidden" id="prod-id">
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="prod-name-en">Name (English) *</label>
+            <input type="text" id="prod-name-en" required placeholder="Product name in English">
+          </div>
+          <div class="form-group">
+            <label for="prod-name-hi">Name (Hindi)</label>
+            <input type="text" id="prod-name-hi" placeholder="उत्पाद का नाम">
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="prod-cat">Category</label>
+            <select id="prod-cat">
+              <option value="sections">Aluminium Sections</option>
+              <option value="sheets">Aluminium Sheets</option>
+              <option value="hardware">Aluminium Hardware</option>
+              <option value="accessories">Hardware Accessories</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="prod-price">Price</label>
+            <input type="text" id="prod-price" placeholder="e.g. ₹250/kg or leave blank">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="prod-desc-en">Description (English)</label>
+          <textarea id="prod-desc-en" placeholder="Brief description in English"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="prod-desc-hi">Description (Hindi)</label>
+          <textarea id="prod-desc-hi" placeholder="हिंदी में विवरण"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="prod-image">Product Image</label>
+          <input type="file" id="prod-image" accept="image/*" onchange="previewImage(this)">
+          <img id="prod-img-preview" class="prod-img-preview" src="" alt="Preview" hidden>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="prod-featured">
+          <label for="prod-featured">Show on home page (featured)</label>
+        </div>
+      </form>
+    </div>
+    <div class="admin-modal-footer">
+      <button class="btn btn-outline" onclick="closeProdModal()">Cancel</button>
+      <button id="prod-save-btn" class="btn btn-primary" onclick="saveProduct()">Add Product</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ ADMIN: Contact Modal ════════ -->
+<div id="admin-contact-modal" class="admin-modal-overlay" hidden>
+  <div class="admin-modal-card" role="dialog" aria-modal="true" aria-labelledby="contact-modal-heading">
+    <div class="admin-modal-header">
+      <h2 id="contact-modal-heading">Edit Contact Info</h2>
+      <button class="admin-modal-close" onclick="closeContactModal()" aria-label="Close">&times;</button>
+    </div>
+    <div class="admin-modal-body">
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label for="ac-phone1">Phone 1</label>
+          <input type="text" id="ac-phone1" placeholder="0731-4040490">
+        </div>
+        <div class="form-group">
+          <label for="ac-phone2">Phone 2 / Fax</label>
+          <input type="text" id="ac-phone2" placeholder="0731-2369678">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="ac-email">Email</label>
+        <input type="email" id="ac-email" placeholder="hardwarehouse1972@gmail.com">
+      </div>
+      <div class="form-group">
+        <label for="ac-address">Address</label>
+        <input type="text" id="ac-address" placeholder="22, Jawahar Marg, Indore">
+      </div>
+      <div class="form-group">
+        <label for="ac-hours">Business Hours</label>
+        <input type="text" id="ac-hours" placeholder="Monday to Saturday: 9:00 AM – 7:00 PM">
+      </div>
+      <div class="form-group">
+        <label for="ac-whatsapp">WhatsApp Number (with country code, digits only)</label>
+        <input type="text" id="ac-whatsapp" placeholder="919827013786">
+      </div>
+    </div>
+    <div class="admin-modal-footer">
+      <button class="btn btn-outline" onclick="closeContactModal()">Cancel</button>
+      <button id="ac-save-btn" class="btn btn-primary" onclick="saveContactInfo()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="admin-toast" class="admin-toast" hidden></div>
+
+<script src="js/config.js"></script>
 <script src="js/data.js"></script>
 <script src="js/translations.js"></script>
+<script src="js/supabase-client.js"></script>
 <script src="js/main.js"></script>
+<script src="js/admin.js"></script>
 <script>
 function initCatalogue() {
   // read URL param
