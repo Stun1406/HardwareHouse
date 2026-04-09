@@ -51,10 +51,14 @@
   <div class="container">
     <div class="nav-inner">
       <a href="index.html" class="logo-wrap">
-        <div class="logo-icon">HH</div>
-        <div class="logo-text">
-          <div class="logo-name">Hardware House</div>
-          <div class="logo-sub">House of Aluminium</div>
+        <img src="images/logo.png" alt="Hardware House" class="logo-img"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="logo-fallback">
+          <div class="logo-icon">HH</div>
+          <div class="logo-text">
+            <div class="logo-name">Hardware House</div>
+            <div class="logo-sub">House of Aluminium</div>
+          </div>
         </div>
       </a>
       <ul class="nav-links" id="nav-links">
@@ -84,8 +88,8 @@
       <span aria-hidden="true">›</span>
       <span aria-current="page" data-i18n="nav_catalogue">Catalogue</span>
     </nav>
-    <h1><span data-i18n="sec_catalogue">Products Catalogue</span></h1>
-    <p data-i18n="sec_catalogue_sub">Weekly prices updated regularly</p>
+    <h1 data-reveal><span data-i18n="sec_catalogue">Products Catalogue</span></h1>
+    <p data-reveal data-i18n="sec_catalogue_sub">Weekly prices updated regularly</p>
   </div>
 </div>
 
@@ -117,7 +121,7 @@
         <span id="last-update-date">—</span>
       </div>
     </div>
-    <div class="catalogue-grid" id="catalogue-grid"></div>
+    <div class="catalogue-grid" id="catalogue-grid" data-reveal></div>
     <div id="no-products" class="hidden" style="text-align:center;padding:60px 0;color:#888;">
       <p style="font-size:1rem;">No products found in this category.</p>
     </div>

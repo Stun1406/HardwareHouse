@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (typeof initHomePage    === 'function') initHomePage();
   if (typeof initCatalogue   === 'function') initCatalogue();
   if (typeof initContactPage === 'function') initContactPage();
+  initReveal(); // after all content is rendered
 });
 
 /* ── Language ─────────────────────────────────────────────── */
@@ -125,6 +126,38 @@ function renderProductCard(p, lang, opts = {}) {
         </div>
       </div>
     </article>`;
+}
+
+/* ── Scroll Reveal ────────────────────────────────────────── */
+function initReveal() {
+  // Auto-tag staggered grid children
+  document.querySelectorAll('.values-grid, .contact-cards').forEach(grid => {
+    [...grid.children].forEach((child, i) => {
+      if (!child.hasAttribute('data-reveal')) {
+        child.setAttribute('data-reveal', '');
+        if (i > 0) child.setAttribute('data-reveal-delay', Math.min(i, 4).toString());
+      }
+    });
+  });
+
+  const els = document.querySelectorAll('[data-reveal]');
+  if (!els.length) return;
+
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(el => el.classList.add('revealed'));
+    return;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('revealed');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  els.forEach(el => io.observe(el));
 }
 
 function getProductIcon(cat) {

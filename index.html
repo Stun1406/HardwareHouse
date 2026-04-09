@@ -55,10 +55,14 @@
   <div class="container">
     <div class="nav-inner">
       <a href="index.html" class="logo-wrap">
-        <div class="logo-icon">HH</div>
-        <div class="logo-text">
-          <div class="logo-name">Hardware House</div>
-          <div class="logo-sub">House of Aluminium</div>
+        <img src="images/logo.png" alt="Hardware House" class="logo-img"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="logo-fallback">
+          <div class="logo-icon">HH</div>
+          <div class="logo-text">
+            <div class="logo-name">Hardware House</div>
+            <div class="logo-sub">House of Aluminium</div>
+          </div>
         </div>
       </a>
       <ul class="nav-links" id="nav-links">
@@ -90,33 +94,18 @@
       <h1>Hardware House<br><span data-i18n="hero_tagline">House of Aluminium</span></h1>
       <p class="hero-sub" data-i18n="sec_products_sub">Complete range of aluminium products and sections</p>
       <p class="hero-address">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
         22, Jawahar Marg, Opp. Saifee Hotel, Indore
       </p>
       <div class="hero-actions">
         <a href="catalogue.html" class="btn btn-primary" data-i18n="hero_cta2">View Catalogue</a>
         <a href="#contact"       class="btn btn-ghost"   data-i18n="nav_contact">Contact Us</a>
       </div>
-    </div>
-  </div>
-  <!-- Stats panel -->
-  <div class="hero-visual">
-    <div class="hero-stats-grid">
-      <div class="hero-stat">
-        <div class="hero-stat-num">50+</div>
-        <div class="hero-stat-lbl" data-i18n="stat_years">Years Experience</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">200+</div>
-        <div class="hero-stat-lbl" data-i18n="stat_products">Products</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">5K+</div>
-        <div class="hero-stat-lbl" data-i18n="stat_customers">Customers</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">MP</div>
-        <div class="hero-stat-lbl">Region Wide</div>
+      <div class="hero-stats-grid" style="margin-top:48px;">
+        <div class="hero-stat"><div class="hero-stat-num">50+</div><div class="hero-stat-lbl" data-i18n="stat_years">Years Experience</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">200+</div><div class="hero-stat-lbl" data-i18n="stat_products">Products</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">5K+</div><div class="hero-stat-lbl" data-i18n="stat_customers">Customers</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">MP</div><div class="hero-stat-lbl">Region Wide</div></div>
       </div>
     </div>
   </div>
@@ -173,10 +162,10 @@
 <!-- ════════ FEATURED PRODUCTS ════════ -->
 <section class="section products-section">
   <div class="container">
-    <div class="section-label">Our Products</div>
-    <h2 class="section-title" data-i18n="sec_products">Aluminium Products</h2>
-    <p class="section-sub" data-i18n="sec_products_sub">Complete range of aluminium products and sections</p>
-    <div class="products-grid" id="featured-products"></div>
+    <div class="section-label" data-reveal>Our Products</div>
+    <h2 class="section-title" data-reveal data-i18n="sec_products">Aluminium Products</h2>
+    <p class="section-sub" data-reveal data-i18n="sec_products_sub">Complete range of aluminium products and sections</p>
+    <div class="products-grid" id="featured-products" data-reveal></div>
     <div style="text-align:center;margin-top:36px;">
       <a href="catalogue.html" class="btn btn-outline" data-i18n="btn_all">View All Products</a>
     </div>
@@ -189,12 +178,12 @@
     <div class="about-cols">
       <!-- TEXT COLUMN -->
       <div>
-        <div class="section-label" data-i18n="nav_about">About Us</div>
-        <h2 class="section-title" data-i18n="our_story">Our Story</h2>
-        <p data-i18n="about_story1">Hardware House was founded in 1973 by our family on the principles of trust, quality, and fair pricing. Starting as a small hardware shop on Jawahar Marg, we have grown to become one of Indore's most respected aluminium product suppliers.</p>
+        <div class="section-label" data-reveal data-i18n="nav_about">About Us</div>
+        <h2 class="section-title" data-reveal data-i18n="our_story">Our Story</h2>
+        <p data-reveal data-i18n="about_story1">Hardware House was founded in 1973 by our family on the principles of trust, quality, and fair pricing. Starting as a small hardware shop on Jawahar Marg, we have grown to become one of Indore's most respected aluminium product suppliers.</p>
         <p data-i18n="about_story2">Today we serve thousands of customers across Madhya Pradesh, offering the widest range of aluminium sections, sheets, and hardware accessories at competitive market prices.</p>
 
-        <h3 data-i18n="our_values">Our Values</h3>
+        <h3 data-reveal data-i18n="our_values">Our Values</h3>
         <div class="values-grid">
           <article class="val-card">
             <div class="val-icon" aria-hidden="true">
@@ -225,30 +214,30 @@
           </article>
         </div>
 
-        <h3 style="margin-top:42px;" data-i18n="our_journey">Our Journey</h3>
+        <h3 style="margin-top:42px;" data-reveal data-i18n="our_journey">Our Journey</h3>
         <dl class="timeline">
-          <div class="tl-item">
+          <div class="tl-item" data-reveal>
             <dt class="tl-year">1973</dt>
             <dd class="tl-body">
               <strong data-i18n="yr_1973">Founded</strong>
               <p data-i18n="yr_1973_d">Hardware House opens on Jawahar Marg, Indore.</p>
             </dd>
           </div>
-          <div class="tl-item">
+          <div class="tl-item" data-reveal data-reveal-delay="1">
             <dt class="tl-year">1990</dt>
             <dd class="tl-body">
               <strong data-i18n="yr_1990">Expansion</strong>
               <p data-i18n="yr_1990_d">Expanded product range to include full aluminium sections and sheets.</p>
             </dd>
           </div>
-          <div class="tl-item">
+          <div class="tl-item" data-reveal data-reveal-delay="2">
             <dt class="tl-year">2005</dt>
             <dd class="tl-body">
               <strong data-i18n="yr_2005">Wholesale Hub</strong>
               <p data-i18n="yr_2005_d">Became a primary wholesale supplier for Madhya Pradesh region.</p>
             </dd>
           </div>
-          <div class="tl-item">
+          <div class="tl-item" data-reveal data-reveal-delay="3">
             <dt class="tl-year">2024</dt>
             <dd class="tl-body">
               <strong data-i18n="yr_2024">Today</strong>
@@ -259,7 +248,7 @@
       </div>
 
       <!-- IMAGE / BADGE COLUMN -->
-      <div class="about-img-col" style="display:flex;flex-direction:column;align-items:center;gap:24px;padding-top:8px;">
+      <div class="about-img-col" data-reveal="right" style="display:flex;flex-direction:column;align-items:center;gap:24px;padding-top:8px;">
         <div class="exp-badge">
           <div class="exp-num"  data-i18n="exp_years">50+</div>
           <div class="exp-lbl1" data-i18n="exp_lbl1">YEARS OF</div>
@@ -297,8 +286,8 @@
 <!-- ════════ CONTACT ════════ -->
 <section class="contact-page-section" id="contact">
   <div class="container">
-    <h2 class="section-title" style="margin-bottom:8px;"><span data-i18n="nav_contact">Contact</span> Us</h2>
-    <p class="section-sub" style="margin-bottom:40px;" data-i18n="contact_page_sub">Reach us for quotes, bulk enquiries, or product information.</p>
+    <h2 class="section-title" style="margin-bottom:8px;" data-reveal><span data-i18n="nav_contact">Contact</span> Us</h2>
+    <p class="section-sub" style="margin-bottom:40px;" data-reveal data-i18n="contact_page_sub">Reach us for quotes, bulk enquiries, or product information.</p>
     <div class="contact-page-grid">
 
       <!-- LEFT: Info + Map -->
@@ -328,20 +317,22 @@
           </div>
         </div>
 
-        <div class="map-placeholder">
-          <div>
-            <svg width="36" height="36" fill="none" stroke="#bbb" stroke-width="1.5" viewBox="0 0 24 24" style="display:block;margin:0 auto 10px;">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-            </svg>
-            <p style="margin-bottom:8px;">22, Jawahar Marg, Opp. Saifee Hotel, Indore</p>
-            <a href="https://maps.google.com/?q=22+Jawahar+Marg+Saifee+Hotel+Indore" target="_blank" rel="noopener"
-               class="btn btn-outline btn-sm" data-i18n="get_directions">Get Directions on Google Maps</a>
-          </div>
+        <div class="map-embed" data-reveal>
+          <iframe
+            src="https://maps.google.com/maps?q=22+Jawahar+Marg+Indore+Madhya+Pradesh&output=embed&z=16"
+            title="Hardware House location"
+            allowfullscreen loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <div style="margin-top:12px;">
+          <a href="https://maps.google.com/?q=22+Jawahar+Marg+Saifee+Hotel+Indore" target="_blank" rel="noopener"
+             class="btn btn-outline btn-sm" data-i18n="get_directions">Get Directions</a>
         </div>
       </div>
 
       <!-- RIGHT: Contact Form -->
-      <div>
+      <div data-reveal="right">
         <div class="form-wrap">
           <h3 data-i18n="form_heading">Send Us a Message</h3>
           <p data-i18n="form_sub">We typically respond within a few hours.</p>

@@ -187,8 +187,8 @@ dd { margin:0; }
 }
 .hero-content {
   position:relative; z-index:2;
-  padding:80px 0 100px;
-  max-width:640px;
+  padding:96px 0 110px;
+  max-width:780px;
 }
 .hero-badge {
   display:inline-flex; align-items:center; gap:8px;
@@ -222,7 +222,10 @@ dd { margin:0; }
   z-index:2; padding:60px 60px 60px 0;
 }
 .hero-stats-grid {
-  display:grid; grid-template-columns:1fr 1fr; gap:14px; width:100%;
+  display:grid; grid-template-columns:repeat(4,1fr); gap:14px; max-width:600px;
+}
+@media (max-width:640px) {
+  .hero-stats-grid { grid-template-columns:1fr 1fr; }
 }
 .hero-stat {
   background:rgba(255,255,255,0.1);
@@ -798,3 +801,35 @@ body.admin-mode .product-card {
   from { opacity:0; transform:translateY(8px); }
   to   { opacity:1; transform:translateY(0); }
 }
+
+/* ── Logo image ───────────────────────────────────────────── */
+.logo-img { height:48px; width:auto; display:block; object-fit:contain; }
+.logo-fallback { display:none; align-items:center; gap:12px; }
+
+/* ── Scroll Reveal ────────────────────────────────────────── */
+[data-reveal] {
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity 0.65s cubic-bezier(0.22,1,0.36,1),
+             transform 0.65s cubic-bezier(0.22,1,0.36,1);
+}
+[data-reveal="left"]  { transform:translateX(-28px); }
+[data-reveal="right"] { transform:translateX(28px); }
+[data-reveal="scale"] { transform:scale(0.94) translateY(12px); }
+[data-reveal].revealed { opacity:1; transform:none; }
+[data-reveal-delay="1"] { transition-delay:0.08s; }
+[data-reveal-delay="2"] { transition-delay:0.16s; }
+[data-reveal-delay="3"] { transition-delay:0.24s; }
+[data-reveal-delay="4"] { transition-delay:0.32s; }
+@media (prefers-reduced-motion:reduce) {
+  [data-reveal] { opacity:1; transform:none; transition:none; }
+}
+
+/* ── Map embed ────────────────────────────────────────────── */
+.map-embed {
+  border-radius:var(--radius); overflow:hidden;
+  margin-top:24px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.08);
+  border:1px solid var(--border);
+}
+.map-embed iframe { display:block; width:100%; height:300px; border:0; }
