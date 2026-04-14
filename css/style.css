@@ -858,10 +858,8 @@ body.admin-mode .product-card {
 
 /* ── Logo image ───────────────────────────────────────────── */
 .logo-img {
-  height:52px; width:auto; display:block; object-fit:contain;
-  image-rendering:-webkit-optimize-contrast;
-  image-rendering:crisp-edges;
-  filter:contrast(1.08) saturate(1.1);
+  height:44px; width:auto; display:block; object-fit:contain;
+  max-width:200px;
 }
 .logo-fallback { display:none; align-items:center; gap:12px; }
 
