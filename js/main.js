@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (typeof initHomePage    === 'function') initHomePage();
   if (typeof initCatalogue   === 'function') initCatalogue();
   if (typeof initContactPage === 'function') initContactPage();
-  initReveal(); // after all content is rendered
+  initReveal();    // scroll reveal animations
+  initCounters();  // animated number counters
 });
 
 /* ── Language ─────────────────────────────────────────────── */
@@ -44,6 +45,12 @@ function applyLang(lang) {
     if (t[k] !== undefined) el.placeholder = t[k];
   });
 }
+
+/* ── Hero image Ken Burns effect ─────────────────────────── */
+(function() {
+  const hero = document.querySelector('.hero');
+  if (hero) requestAnimationFrame(() => hero.classList.add('loaded'));
+})();
 
 /* ── Navigation ───────────────────────────────────────────── */
 function initNav() {
@@ -131,7 +138,7 @@ function renderProductCard(p, lang, opts = {}) {
 /* ── Scroll Reveal ────────────────────────────────────────── */
 function initReveal() {
   // Auto-tag staggered grid children
-  document.querySelectorAll('.values-grid, .contact-cards').forEach(grid => {
+  document.querySelectorAll('.values-grid, .contact-cards, .contact-info-row, .hero-stats-grid').forEach(grid => {
     [...grid.children].forEach((child, i) => {
       if (!child.hasAttribute('data-reveal')) {
         child.setAttribute('data-reveal', '');
@@ -155,9 +162,53 @@ function initReveal() {
         io.unobserve(e.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
 
   els.forEach(el => io.observe(el));
+}
+
+/* ── Animated Counters ────────────────────────────────────── */
+function initCounters() {
+  const counters = document.querySelectorAll('[data-counter]');
+  if (!counters.length || !('IntersectionObserver' in window)) return;
+
+  // Respect reduced-motion preference
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        runCounter(e.target, prefersReduced);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.6 });
+
+  counters.forEach(el => io.observe(el));
+}
+
+function runCounter(el, instant) {
+  const target = parseInt(el.dataset.counter, 10);
+  const suffix = el.dataset.counterSuffix || '';
+  if (instant) { el.textContent = target + suffix; return; }
+
+  const duration = 1800;
+  const start    = performance.now();
+
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    // Ease-out cubic for a natural deceleration
+    const eased  = 1 - Math.pow(1 - progress, 3);
+    const current = Math.floor(eased * target);
+    el.textContent = current + suffix;
+    if (progress < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      el.textContent = target + suffix;
+      el.classList.add('counted');
+    }
+  }
+  requestAnimationFrame(tick);
 }
 
 function getProductIcon(cat) {

@@ -102,9 +102,9 @@
         <a href="#contact"       class="btn btn-ghost"   data-i18n="nav_contact">Contact Us</a>
       </div>
       <div class="hero-stats-grid" style="margin-top:48px;">
-        <div class="hero-stat"><div class="hero-stat-num">50+</div><div class="hero-stat-lbl" data-i18n="stat_years">Years Experience</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">200+</div><div class="hero-stat-lbl" data-i18n="stat_products">Products</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">5K+</div><div class="hero-stat-lbl" data-i18n="stat_customers">Customers</div></div>
+        <div class="hero-stat"><div class="hero-stat-num" data-counter="50" data-counter-suffix="+">50+</div><div class="hero-stat-lbl" data-i18n="stat_years">Years Experience</div></div>
+        <div class="hero-stat"><div class="hero-stat-num" data-counter="200" data-counter-suffix="+">200+</div><div class="hero-stat-lbl" data-i18n="stat_products">Products</div></div>
+        <div class="hero-stat"><div class="hero-stat-num" data-counter="5" data-counter-suffix="K+">5K+</div><div class="hero-stat-lbl" data-i18n="stat_customers">Customers</div></div>
         <div class="hero-stat"><div class="hero-stat-num">MP</div><div class="hero-stat-lbl">Region Wide</div></div>
       </div>
     </div>
@@ -261,15 +261,15 @@
         <div style="background:var(--primary);border-radius:var(--radius);padding:24px 20px;width:100%;color:#fff;">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:center;">
             <div>
-              <div style="font-size:2rem;font-weight:900;">50+</div>
+              <div style="font-size:2rem;font-weight:900;" data-counter="50" data-counter-suffix="+">50+</div>
               <div style="font-size:0.75rem;opacity:0.75;margin-top:2px;" data-i18n="stat_years">Years Experience</div>
             </div>
             <div>
-              <div style="font-size:2rem;font-weight:900;">200+</div>
+              <div style="font-size:2rem;font-weight:900;" data-counter="200" data-counter-suffix="+">200+</div>
               <div style="font-size:0.75rem;opacity:0.75;margin-top:2px;" data-i18n="stat_products">Products</div>
             </div>
             <div>
-              <div style="font-size:2rem;font-weight:900;">5K+</div>
+              <div style="font-size:2rem;font-weight:900;" data-counter="5" data-counter-suffix="K+">5K+</div>
               <div style="font-size:0.75rem;opacity:0.75;margin-top:2px;" data-i18n="stat_customers">Customers Served</div>
             </div>
             <div>
@@ -286,91 +286,56 @@
 <!-- ════════ CONTACT ════════ -->
 <section class="contact-page-section" id="contact">
   <div class="container">
-    <h2 class="section-title" style="margin-bottom:8px;" data-reveal><span data-i18n="nav_contact">Contact</span> Us</h2>
-    <p class="section-sub" style="margin-bottom:40px;" data-reveal data-i18n="contact_page_sub">Reach us for quotes, bulk enquiries, or product information.</p>
-    <div class="contact-page-grid">
+    <h2 class="section-title" style="margin-bottom:8px;text-align:center;" data-reveal><span data-i18n="nav_contact">Contact</span> Us</h2>
+    <p class="section-sub" style="margin-bottom:40px;text-align:center;margin-left:auto;margin-right:auto;" data-reveal data-i18n="contact_page_sub">Reach us for quotes, bulk enquiries, or product information.</p>
 
-      <!-- LEFT: Info + Map -->
-      <div>
-        <div class="contact-cards">
-          <div class="info-card">
-            <h4 data-i18n="contact_phone">Phone</h4>
-            <p><a href="#" data-c="phone-link">
-               <span data-c="phone1">0731-4010200</span></a><br>
-               <a href="#" data-c="phone-link"><span data-c="phone2">0731-4010210</span></a></p>
-          </div>
-          <div class="info-card">
-            <h4 data-i18n="contact_email">Email</h4>
-            <p><a href="#" data-c="email-link"><span data-c="email">info@hardwarehouse.in</span></a></p>
-          </div>
-          <div class="info-card" style="grid-column:span 2;">
-            <h4 data-i18n="contact_address">Address</h4>
-            <p data-c="address">29, Jawahar Marg, Near Polo Ground, Indore – 452001, Madhya Pradesh</p>
-          </div>
-          <div class="info-card">
-            <h4 data-i18n="contact_hours">Business Hours</h4>
-            <p data-c="hours">Mon–Sat: 9:00 AM – 7:00 PM</p>
-          </div>
-          <div class="info-card">
-            <h4>WhatsApp</h4>
-            <p><a href="#" data-c="whatsapp-link" target="_blank">Chat on WhatsApp</a></p>
-          </div>
-        </div>
+    <!-- Map (full-width, prominent) -->
+    <div class="contact-map-wrap" data-reveal>
+      <iframe
+        src="https://maps.google.com/maps?q=22+Jawahar+Marg+Opp+Saifee+Hotel+Indore+Madhya+Pradesh&output=embed&z=17"
+        title="Hardware House — 22 Jawahar Marg, Indore"
+        allowfullscreen loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      <a href="https://maps.google.com/?q=22+Jawahar+Marg+Opp+Saifee+Hotel+Indore+MP" target="_blank" rel="noopener"
+         class="map-directions-btn" data-i18n="get_directions">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.71 11.29l-9-9a1 1 0 00-1.42 0l-9 9a1 1 0 000 1.42l9 9a1 1 0 001.42 0l9-9a1 1 0 000-1.42zM14 14.5V12h-4v3H8v-4a1 1 0 011-1h5V7.5l3.5 3.5-3.5 3.5z"/></svg>
+        Get Directions
+      </a>
+    </div>
 
-        <div class="map-embed" data-reveal>
-          <iframe
-            src="https://maps.google.com/maps?q=22+Jawahar+Marg+Indore+Madhya+Pradesh&output=embed&z=16"
-            title="Hardware House location"
-            allowfullscreen loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
+    <!-- Contact Info Row -->
+    <div class="contact-info-row" data-reveal>
+
+      <div class="cic-card">
+        <div class="cic-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
         </div>
-        <div style="margin-top:12px;">
-          <a href="https://maps.google.com/?q=22+Jawahar+Marg+Saifee+Hotel+Indore" target="_blank" rel="noopener"
-             class="btn btn-outline btn-sm" data-i18n="get_directions">Get Directions</a>
+        <div class="cic-body">
+          <h4 data-i18n="contact_phone">Phone</h4>
+          <p><a href="#" data-c="phone-link"><span data-c="phone1">0731-4040490</span></a></p>
+          <p><a href="#" data-c="phone-link"><span data-c="phone2">0731-2369678</span></a></p>
         </div>
       </div>
 
-      <!-- RIGHT: Contact Form -->
-      <div data-reveal="right">
-        <div class="form-wrap">
-          <h3 data-i18n="form_heading">Send Us a Message</h3>
-          <p data-i18n="form_sub">We typically respond within a few hours.</p>
+      <div class="cic-card">
+        <div class="cic-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        </div>
+        <div class="cic-body">
+          <h4 data-i18n="contact_address">Address</h4>
+          <p data-c="address">22, Jawahar Marg, Opp. Saifee Hotel, Indore – 7 (M.P.)</p>
+        </div>
+      </div>
 
-          <div class="form-success" id="form-success">
-            <span data-i18n="form_success">Thank you! We will contact you shortly.</span>
-          </div>
-
-          <form id="contact-form" novalidate>
-            <div class="form-group">
-              <label data-i18n="form_name">Your Name</label>
-              <input type="text" id="f-name" data-i18n-ph="form_name" placeholder="Your Name" required>
-            </div>
-            <div class="form-group">
-              <label data-i18n="form_phone">Phone Number</label>
-              <input type="tel" id="f-phone" data-i18n-ph="form_phone" placeholder="Phone Number" required>
-            </div>
-            <div class="form-group">
-              <label data-i18n="form_email">Email Address</label>
-              <input type="email" id="f-email" data-i18n-ph="form_email" placeholder="Email Address">
-            </div>
-            <div class="form-group">
-              <label data-i18n="form_product">Product / Category of Interest</label>
-              <select id="f-product">
-                <option value="">— Select category —</option>
-                <option value="sections">Aluminium Sections</option>
-                <option value="sheets">Aluminium Sheets</option>
-                <option value="hardware">Aluminium Hardware</option>
-                <option value="accessories">Hardware Accessories</option>
-                <option value="other">Other / General Enquiry</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label data-i18n="form_message">Your Message</label>
-              <textarea id="f-message" data-i18n-ph="form_message" placeholder="Your Message"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary" style="width:100%;" data-i18n="btn_send">Send Message</button>
-          </form>
+      <div class="cic-card">
+        <div class="cic-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+        </div>
+        <div class="cic-body">
+          <h4 data-i18n="contact_hours">Business Hours</h4>
+          <p data-c="hours">Monday to Saturday: 9:00 AM – 7:00 PM</p>
+          <p class="cic-closed">Sunday: Closed</p>
         </div>
       </div>
 
