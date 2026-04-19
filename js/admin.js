@@ -238,8 +238,8 @@ function _refreshGrids() {
 
   const feat = document.getElementById('featured-products');
   if (feat) {
-    feat.innerHTML = products
-      .filter(p => p.featured)
+    const shown = products.some(p => p.featured) ? products.filter(p => p.featured) : products;
+    feat.innerHTML = shown
       .map(p => renderProductCard(p, lang, { linkToContact: true }))
       .join('');
   }

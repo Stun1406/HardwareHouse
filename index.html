@@ -490,7 +490,9 @@
 <script>
 function initHomePage() {
   const lang = getCurrentLang();
-  const products = getProducts().filter(p => p.featured);
+  const all  = getProducts();
+  // Show featured products if any are marked; otherwise show everything
+  const products = all.some(p => p.featured) ? all.filter(p => p.featured) : all;
   const container = document.getElementById('featured-products');
   if (container)
     container.innerHTML = products.map(p => renderProductCard(p, lang, { linkToContact:true })).join('');
